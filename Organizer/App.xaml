@@ -251,6 +251,9 @@
             <DataTemplate x:Key="DocxViewerTemplate">
                 <View:DocxViewer DocxDataFilePath="{Binding Path=DataContext, Converter={StaticResource FilePathMergeConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
             </DataTemplate>
+            <DataTemplate x:Key="XlsxViewerTemplate">
+                <View:XlsxViewer XlsxDataFilePath="{Binding Path=DataContext, Converter={StaticResource FilePathMergeConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </DataTemplate>
             <DataTemplate x:Key="ImageViewerTemplate">
                 <Extensions:ImageViewer DecodeHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}"
                     ImageFilePath="{Binding Converter={StaticResource FilePathMergeConverter}, Mode=OneWay}"
@@ -285,6 +288,7 @@
                 Image="{StaticResource ImageViewerTemplate}"
                 Pdf="{StaticResource PdfViewerTemplate}"
                 Video="{StaticResource VideoViewerTemplate}"
+                Xlsx="{StaticResource XlsxViewerTemplate}"
                 Xps="{StaticResource XpsViewerTemplate}"
                 Zip="{StaticResource ZipViewerTemplate}" />
         </ResourceDictionary>

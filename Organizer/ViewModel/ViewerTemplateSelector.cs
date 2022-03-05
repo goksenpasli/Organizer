@@ -17,6 +17,8 @@ namespace Organizer.ViewModel
 
         public DataTemplate Video { get; set; }
 
+        public DataTemplate Xlsx { get; set; }
+
         public DataTemplate Xps { get; set; }
 
         public DataTemplate Zip { get; set; }
@@ -42,6 +44,10 @@ namespace Organizer.ViewModel
                 {
                     return Docx;
                 }
+                if (xlsext.Contains(ext))
+                {
+                    return Xlsx;
+                }
                 if (imageext.Contains(ext))
                 {
                     return Image;
@@ -63,5 +69,7 @@ namespace Organizer.ViewModel
         private readonly string[] imageext = new string[] { ".jpg", ".jpeg", ".jfif", ".tif", ".tiff", ".png", ".bmp" };
 
         private readonly string[] videoext = new string[] { ".mp4", ".wmv", ".avi", ".mpg", ".mov", ".3gp2", ".3gpp", ".3gp", ".mpeg" };
+
+        private readonly string[] xlsext = new string[] { ".csv", ".xls", ".xlsx", ".xlsb" };
     }
 }

@@ -188,6 +188,11 @@ namespace Organizer.ViewModel
         {
             if (e.PropertyName is "EtiketAramaMetni")
             {
+                if (string.IsNullOrEmpty(EtiketAramaMetni))
+                {
+                    MainWindow.cvs.Filter += (s, e) => e.Accepted = true;
+                    return;
+                }
                 IEnumerable<int> id = Veriler?.Etiketler?.Etiket?.Where(z => z.Açıklama?.Contains(EtiketAramaMetni) == true).Select(z => z.Id);
                 MainWindow.cvs.Filter += (s, e) => e.Accepted = (e.Item as Veri)?.Etiket?.Any(z => id?.Contains(z.Id) == true) == true;
             }
