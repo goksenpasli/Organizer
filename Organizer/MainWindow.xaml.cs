@@ -9,11 +9,13 @@ namespace Organizer
     public partial class MainWindow : Window
     {
         public static CollectionViewSource cvs;
+        public static CollectionViewSource cvsetiket;
 
         public MainWindow()
         {
             InitializeComponent();
             cvs = FindResource("Veriler") as CollectionViewSource;
+            cvsetiket = FindResource("Etiketler") as CollectionViewSource;
         }
     }
 }

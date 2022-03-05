@@ -149,6 +149,8 @@ namespace Organizer.ViewModel
 
         public string Etiket { get; set; }
 
+        public string EtiketAçıklamaMetni { get; set; }
+
         public string EtiketAramaMetni { get; set; }
 
         public ICommand EtiketEkle { get; }
@@ -195,6 +197,16 @@ namespace Organizer.ViewModel
                 }
                 IEnumerable<int> id = Veriler?.Etiketler?.Etiket?.Where(z => z.Açıklama?.Contains(EtiketAramaMetni) == true).Select(z => z.Id);
                 MainWindow.cvs.Filter += (s, e) => e.Accepted = (e.Item as Veri)?.Etiket?.Any(z => id?.Contains(z.Id) == true) == true;
+            }
+
+            if (e.PropertyName is "EtiketAçıklamaMetni")
+            {
+                if (string.IsNullOrEmpty(EtiketAçıklamaMetni))
+                {
+                    MainWindow.cvsetiket.Filter += (s, e) => e.Accepted = true;
+                    return;
+                }
+                MainWindow.cvsetiket.Filter += (s, e) => e.Accepted = (e.Item as Etiket)?.Açıklama?.Contains(EtiketAçıklamaMetni) == true;
             }
         }
     }

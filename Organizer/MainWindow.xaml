@@ -13,6 +13,7 @@
     mc:Ignorable="d">
     <Window.Resources>
         <CollectionViewSource x:Key="Veriler" Source="{Binding Veriler.Veri}" />
+        <CollectionViewSource x:Key="Etiketler" Source="{Binding Veriler.Etiketler.Etiket}" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -38,10 +39,19 @@
                         </Button>
                     </HeaderedContentControl>
                     <TextBox Text="{Binding Etiket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <HeaderedContentControl Header="ETİKETLER">
+                    <HeaderedContentControl>
+                        <HeaderedContentControl.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="ETİKETLER" VerticalAlignment="Center" />
+                                <TextBox Text="{Binding EtiketAçıklamaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Width="55"
+                                    IsTabStop="False" />
+                            </StackPanel>
+                        </HeaderedContentControl.Header>
                         <ListBox Height="100"
                             d:ItemsSource="{d:SampleData ItemCount=5}"
-                            ItemsSource="{Binding Veriler.Etiketler.Etiket}"
+                            IsSynchronizedWithCurrentItem="False"
+                            ItemsSource="{Binding Mode=OneWay, Source={StaticResource Etiketler}}"
                             SelectionMode="Extended">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">

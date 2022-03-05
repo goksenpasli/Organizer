@@ -88,7 +88,7 @@ namespace Extensions.Controls
 
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is ArchiveViewer archiveViewer)
+            if (d is ArchiveViewer archiveViewer && e.NewValue is not null)
             {
                 archiveViewer.Arşivİçerik = new();
                 using (ZipArchive archive = ZipFile.Open((string)e.NewValue, ZipArchiveMode.Read))
