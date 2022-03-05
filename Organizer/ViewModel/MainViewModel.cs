@@ -59,6 +59,16 @@ namespace Organizer.ViewModel
                 Etiket = null;
             }, parameter => !string.IsNullOrWhiteSpace(Properties.Settings.Default.XmlDataPath) && !string.IsNullOrWhiteSpace(Etiket));
 
+            EtiketSil = new RelayCommand<object>(parameter =>
+            {
+                if (MessageBox.Show("Seçili Etiketi Silmek İstiyor musun?", App.Current.MainWindow.Title, MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) == MessageBoxResult.Yes)
+                {
+                    Etiket silinecek = SeçiliVeri.Etiket.FirstOrDefault(z => z.Id == (parameter as Etiket)?.Id);
+                    SeçiliVeri.Etiket.Remove(silinecek);
+                    DatabaseSave.Execute(null);
+                }
+            }, parameter => SeçiliVeri is not null);
+
             DosyaEkle = new RelayCommand<object>(parameter =>
             {
                 OpenFileDialog openFileDialog = new() { Multiselect = false, Filter = "Tüm Dosyalar (*.*)|*.*" };
@@ -143,6 +153,8 @@ namespace Organizer.ViewModel
 
         public ICommand EtiketEkle { get; }
 
+        public ICommand EtiketSil { get; }
+
         public ICommand ExploreFile { get; }
 
         public ICommand KayıtEkle { get; }
@@ -155,6 +167,8 @@ namespace Organizer.ViewModel
 </Veriler>";
 
         public ICommand SaveSampleXml { get; }
+
+        public Veri SeçiliVeri { get; set; }
 
         public Veri Veri { get; set; }
 
