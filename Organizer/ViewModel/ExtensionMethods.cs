@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Xml.Linq;
@@ -53,38 +51,6 @@ namespace Organizer.ViewModel
            : new ObservableCollection<Etiket>();
         }
 
-        internal static void OpenFolderAndSelectItem(string folderPath, string file)
-        {
-            SHParseDisplayName(folderPath, IntPtr.Zero, out IntPtr nativeFolder, 0, out _);
-
-            if (nativeFolder == IntPtr.Zero)
-            {
-                // Log error, can't find folder
-                return;
-            }
-
-            SHParseDisplayName(Path.Combine(folderPath, file), IntPtr.Zero, out IntPtr nativeFile, 0, out _);
-
-            IntPtr[] fileArray;
-            if (nativeFile == IntPtr.Zero)
-            {
-                // Open the folder without the file selected if we can't find the file
-                fileArray = new IntPtr[0];
-            }
-            else
-            {
-                fileArray = new IntPtr[] { nativeFile };
-            }
-
-            _ = SHOpenFolderAndSelectItems(nativeFolder, (uint)fileArray.Length, fileArray, 0);
-
-            Marshal.FreeCoTaskMem(nativeFolder);
-            if (nativeFile != IntPtr.Zero)
-            {
-                Marshal.FreeCoTaskMem(nativeFile);
-            }
-        }
-
         internal static string RandomColor()
         {
             return $"#{new Random(Guid.NewGuid().GetHashCode()).Next(0x1000000):X6}";
@@ -110,7 +76,5 @@ namespace Organizer.ViewModel
            ? Properties.Settings.Default.XmlDataPath.DeSerialize<Veriler>().Veri
            : new ObservableCollection<Veri>();
         }
-
-        private static readonly string[] ColorNames = typeof(System.Windows.Media.Brushes).GetProperties(BindingFlags.Public | BindingFlags.Static).Select(propInfo => propInfo.Name).Where(z => z != "Transparent").ToArray();
     }
 }

@@ -246,7 +246,9 @@
                 <View:DocxViewer DocxDataFilePath="{Binding Path=DataContext, Converter={StaticResource FilePathMergeConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
             </DataTemplate>
             <DataTemplate x:Key="ImageViewerTemplate">
-                <Extensions:ImageViewer DecodeHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}" ImageFilePath="{Binding Converter={StaticResource FilePathMergeConverter}, Mode=OneWay}" />
+                <Extensions:ImageViewer DecodeHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}"
+                    ImageFilePath="{Binding Converter={StaticResource FilePathMergeConverter}, Mode=OneWay}"
+                    OrijinalResimDosyaAçButtonVisibility="Collapsed" PrintButtonVisibility="Visible" />
             </DataTemplate>
             <DataTemplate x:Key="VideoViewerTemplate">
                 <Media:MediaViewer MediaDataFilePath="{Binding Path=DataContext, Converter={StaticResource FilePathMergeConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}" />

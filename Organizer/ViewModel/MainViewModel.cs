@@ -28,6 +28,8 @@ namespace Organizer.ViewModel
 
             DatabaseSave = new RelayCommand<object>(parameter => Veriler.Serialize(), parameter => File.Exists(Properties.Settings.Default.XmlDataPath));
 
+            RefreshDatabase = new RelayCommand<object>(parameter => Veriler.Veri = ExtensionMethods.VerileriYükle(), parameter => File.Exists(Properties.Settings.Default.XmlDataPath));
+
             YoluKaydet = new RelayCommand<object>(parameter =>
             {
                 string folderpath = GetFolderPath();
@@ -85,7 +87,7 @@ namespace Organizer.ViewModel
                 }
             });
 
-            ExploreFile = new RelayCommand<object>(parameter => ExtensionMethods.OpenFolderAndSelectItem(Path.GetDirectoryName(Properties.Settings.Default.XmlDataPath), Path.GetFileName(parameter as string)), parameter => true);
+            ExploreFile = new RelayCommand<object>(parameter => Extensions.ExtensionMethods.OpenFolderAndSelectItem(Path.GetDirectoryName(Properties.Settings.Default.XmlDataPath), Path.GetFileName(parameter as string)), parameter => true);
 
             KayıtEkle = new RelayCommand<object>(parameter =>
             {
@@ -144,6 +146,8 @@ namespace Organizer.ViewModel
         public ICommand ExploreFile { get; }
 
         public ICommand KayıtEkle { get; }
+
+        public ICommand RefreshDatabase { get; }
 
         public string SampleXmlData => @"<?xml version=""1.0"" encoding=""UTF-8""?>
 <Veriler xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">

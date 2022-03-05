@@ -6,8 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:Organizer.Properties"
     DataContext="{Binding Mode=OneWay, Source={StaticResource MainViewModel}}"
-    Width="800" Height="450"
-    UseLayoutRounding="True" WindowStartupLocation="CenterScreen" WindowState="Maximized"
+    d:Height="600" d:Width="800" UseLayoutRounding="True" WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
     mc:Ignorable="d">
     <Window.Resources>
         <CollectionViewSource x:Key="Veriler" Source="{Binding Veriler.Veri}" />
@@ -21,22 +21,67 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <HeaderedContentControl Header="DOSYA SEÇ">
-                        <Button Content="SEÇ" Command="{Binding DosyaEkle}" />
+                        <Button Command="{Binding DosyaEkle}">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <Image Width="32" Height="32">
+                                    <Image.Source>
+                                        <MultiBinding Converter="{StaticResource SystemFileIconConverter}">
+                                            <Binding Source="Shell32.dll" />
+                                            <Binding Source="1" />
+                                        </MultiBinding>
+                                    </Image.Source>
+                                </Image>
+                                <TextBlock Text="SEÇ" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
                     </HeaderedContentControl>
                     <TextBox Text="{Binding Etiket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <HeaderedContentControl Header="ETİKETLER">
                         <ListBox Height="100"
-                        d:ItemsSource="{d:SampleData ItemCount=5}"
-                        ItemsSource="{Binding Veriler.Etiketler.Etiket}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <CheckBox Content="{Binding Açıklama}" IsChecked="{Binding Seçili}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
+                            d:ItemsSource="{d:SampleData ItemCount=5}"
+                            ItemsSource="{Binding Veriler.Etiketler.Etiket}"
+                            SelectionMode="Extended">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate>
+                                                <CheckBox Content="{Binding Açıklama}"
+                                                    d:Content="Açıklama"
+                                                    IsChecked="{Binding Seçili}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
                         </ListBox>
                     </HeaderedContentControl>
-                    <Button Content="ETİKET EKLE" Command="{Binding EtiketEkle}" />
-                    <Button Content="KAYIT EKLE" Command="{Binding KayıtEkle}" />
+                    <Button Command="{Binding EtiketEkle}">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Image Width="32" Height="32">
+                                <Image.Source>
+                                    <MultiBinding Converter="{StaticResource SystemFileIconConverter}">
+                                        <Binding Source="Shell32.dll" />
+                                        <Binding Source="144" />
+                                    </MultiBinding>
+                                </Image.Source>
+                            </Image>
+                            <TextBlock Text="ETİKET EKLE" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding KayıtEkle}">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Image Width="32" Height="32">
+                                <Image.Source>
+                                    <MultiBinding Converter="{StaticResource SystemFileIconConverter}">
+                                        <Binding Source="Shell32.dll" />
+                                        <Binding Source="223" />
+                                    </MultiBinding>
+                                </Image.Source>
+                            </Image>
+                            <TextBlock Text="KAYIT EKLE" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
                     <GroupBox Header="AYARLAR">
                         <HeaderedContentControl Header="DOSYA KAYIT YOLU">
                             <Grid>
@@ -45,22 +90,64 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <TextBox Grid.Row="0" Text="{Binding Path=XmlDataPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Source={x:Static properties:Settings.Default}}" IsReadOnly="True" />
-                                <TextBox Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding SampleXmlData, Mode=OneWay}"
-                                Height="100"
-                                IsReadOnly="true" TextWrapping="Wrap"
-                                ToolTip="Örnek Boş XML Dosyası Data.xml adında dosya oluşturup Kaydedin." />
-                                <Button Grid.Row="2" Grid.ColumnSpan="2" Content="ÖRNEK BOŞ XML DOSYASI KAYDET" Command="{Binding SaveSampleXml}" />
-                                <Button Grid.Row="0" Content="KLASÖR AÇ"
-                                Grid.Column="1"
-                                Command="{Binding YoluKaydet, Mode=OneWay}" />
+                                <TextBox Text="{Binding Path=XmlDataPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Source={x:Static properties:Settings.Default}}"
+                                    Grid.Row="0"
+                                    IsReadOnly="True" />
+                                <TextBox Text="{Binding SampleXmlData, Mode=OneWay}"
+                                    Grid.Row="1" Grid.ColumnSpan="2"
+                                    Height="100"
+                                    IsReadOnly="true" TextWrapping="Wrap"
+                                    ToolTip="Örnek Boş XML Dosyası Data.xml adında dosya oluşturup Kaydedin." />
+                                <Button Grid.Row="2" Grid.ColumnSpan="2"
+                                    Command="{Binding SaveSampleXml}">
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <Image Width="32" Height="32">
+                                            <Image.Source>
+                                                <MultiBinding Converter="{StaticResource SystemFileIconConverter}">
+                                                    <Binding Source="Shell32.dll" />
+                                                    <Binding Source="69" />
+                                                </MultiBinding>
+                                            </Image.Source>
+                                        </Image>
+                                        <TextBlock Text="ÖRNEK BOŞ XML&#x0a;DOSYASI KAYDET" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
+                                <Button Grid.Row="0" Grid.Column="1"
+                                    Command="{Binding YoluKaydet, Mode=OneWay}">
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <Image Width="32" Height="32">
+                                            <Image.Source>
+                                                <MultiBinding Converter="{StaticResource SystemFileIconConverter}">
+                                                    <Binding Source="Shell32.dll" />
+                                                    <Binding Source="3" />
+                                                </MultiBinding>
+                                            </Image.Source>
+                                        </Image>
+                                        <TextBlock Text="KLASÖR AÇ" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Button>
                             </Grid>
                         </HeaderedContentControl>
                     </GroupBox>
+                    <Button Background="Green"
+                        Command="{Binding RefreshDatabase}"
+                        IsTabStop="False">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Image Width="32" Height="32">
+                                <Image.Source>
+                                    <MultiBinding Converter="{StaticResource SystemFileIconConverter}">
+                                        <Binding Source="Shell32.dll" />
+                                        <Binding Source="238" />
+                                    </MultiBinding>
+                                </Image.Source>
+                            </Image>
+                            <TextBlock Text="VERİLERİ YENİLE" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </ScrollViewer>
         </GroupBox>
@@ -76,13 +163,16 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="LbDosya" d:ItemsSource="{d:SampleData ItemCount=5}"
+                    <ListBox x:Name="LbDosya"
+                        d:ItemsSource="{d:SampleData ItemCount=5}"
                         IsSynchronizedWithCurrentItem="False"
                         ItemsSource="{Binding Mode=OneWay, Source={StaticResource Veriler}}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock TextWrapping="Wrap" d:Width="50" Width="200" Text="{Binding Dosya}" />
+                                    <TextBlock Text="{Binding Dosya}"
+                                        Width="200"
+                                        d:Width="50" TextWrapping="Wrap" />
                                     <TextBlock>
                                         <Hyperlink Command="{Binding DosyaAç, Mode=OneWay, Source={StaticResource MainViewModel}}" CommandParameter="{Binding DosyaAdı}">
                                             <Run Text=" AÇ" />
@@ -96,7 +186,9 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <ContentPresenter Content="{Binding ElementName=LbDosya, Path=SelectedItem.DosyaAdı}" Grid.Column="1" ContentTemplateSelector="{Binding Mode=OneWay, Source={StaticResource ViewerSelector}}" />
+                    <ContentPresenter Content="{Binding ElementName=LbDosya, Path=SelectedItem.DosyaAdı}"
+                        Grid.Column="1"
+                        ContentTemplateSelector="{Binding Mode=OneWay, Source={StaticResource ViewerSelector}}" />
                 </Grid>
             </Grid>
         </GroupBox>
