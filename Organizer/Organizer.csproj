@@ -158,9 +158,6 @@
   <ItemGroup>
     <Resource Include="app.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="TextTemplate.ico" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

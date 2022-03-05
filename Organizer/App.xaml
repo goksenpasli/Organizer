@@ -92,6 +92,7 @@
                 <Setter Property="VirtualizingPanel.ScrollUnit" Value="Pixel" />
                 <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Recycling" />
                 <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="True" />
+                <Setter Property="Extensions:GridViewSort.AutoSort" Value="True" />
             </Style>
             <Style TargetType="{x:Type GroupBox}">
                 <Setter Property="Background" Value="{StaticResource GroupBoxBackGround}" />
@@ -256,6 +257,7 @@
             </DataTemplate>
             <DataTemplate x:Key="ImageViewerTemplate">
                 <Extensions:ImageViewer DecodeHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}"
+                    FitImageOrientation="Height"
                     ImageFilePath="{Binding Converter={StaticResource FilePathMergeConverter}, Mode=OneWay}"
                     OrijinalResimDosyaAçButtonVisibility="Collapsed" PrintButtonVisibility="Visible" />
             </DataTemplate>
@@ -280,7 +282,9 @@
                 <Media:PanoramaViewer PanoramaVideo="{Binding Mode=OneWay, Converter={StaticResource FilePathMergeConverter}}" />
             </DataTemplate>
             <DataTemplate x:Key="EmptyViewerTemplate">
-                <Extensions:ImageViewer DecodeHeight="300" ImageFilePath="{Binding Converter={StaticResource FilePathMergeConverter}, Mode=OneWay}" />
+                <TextBlock Text="ÖNİZLEME YOK"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    FontSize="48" Foreground="Red" />
             </DataTemplate>
             <ViewModel:ViewerTemplateSelector x:Key="ViewerSelector"
                 Docx="{StaticResource DocxViewerTemplate}"

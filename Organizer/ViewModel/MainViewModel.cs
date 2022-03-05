@@ -103,6 +103,11 @@ namespace Organizer.ViewModel
             {
                 try
                 {
+                    if (Veriler.Veri.Any(z => z.DosyaAdı == Path.GetFileName(Veri.DosyaAdı)))
+                    {
+                        MessageBox.Show("Bu İsimde Dosya Zaten Var.", App.Current?.MainWindow?.Title, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
                     Veri veri = new()
                     {
                         DosyaAdı = Path.GetFileName(Veri.DosyaAdı),
@@ -114,8 +119,8 @@ namespace Organizer.ViewModel
                         veri.Etiket.Add(new Etiket() { Id = etiketid });
                     }
 
-                    Veriler.Veri.Add(veri);
                     File.Copy(Veri.DosyaAdı, Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.XmlDataPath), Path.GetFileName(Veri.DosyaAdı)), true);
+                    Veriler.Veri.Add(veri);
                     DatabaseSave.Execute(null);
                     Veri.DosyaAdı = null;
                 }
