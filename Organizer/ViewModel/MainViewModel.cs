@@ -89,21 +89,28 @@ namespace Organizer.ViewModel
 
             KayıtEkle = new RelayCommand<object>(parameter =>
             {
-                Veri veri = new()
+                try
                 {
-                    DosyaAdı = Path.GetFileName(Veri.DosyaAdı),
-                    Etiket = new()
-                };
+                    Veri veri = new()
+                    {
+                        DosyaAdı = Path.GetFileName(Veri.DosyaAdı),
+                        Etiket = new()
+                    };
 
-                foreach (int etiketid in Veriler.Etiketler.Etiket.Where(z => z.Seçili).Select(z => z.Id))
-                {
-                    veri.Etiket.Add(new Etiket() { Id = etiketid });
+                    foreach (int etiketid in Veriler.Etiketler.Etiket.Where(z => z.Seçili).Select(z => z.Id))
+                    {
+                        veri.Etiket.Add(new Etiket() { Id = etiketid });
+                    }
+
+                    Veriler.Veri.Add(veri);
+                    File.Copy(Veri.DosyaAdı, Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.XmlDataPath), Path.GetFileName(Veri.DosyaAdı)), true);
+                    DatabaseSave.Execute(null);
+                    Veri.DosyaAdı = null;
                 }
-
-                Veriler.Veri.Add(veri);
-                File.Copy(Veri.DosyaAdı, Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.XmlDataPath), Path.GetFileName(Veri.DosyaAdı)), true);
-                DatabaseSave.Execute(null);
-                Veri.DosyaAdı = null;
+                catch (System.Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                }
             }, parameter => !string.IsNullOrWhiteSpace(Properties.Settings.Default.XmlDataPath) && !string.IsNullOrWhiteSpace(Veri.DosyaAdı) && Veriler.Etiketler.Etiket.Any(z => z.Seçili));
 
             if (!File.Exists(Properties.Settings.Default.XmlDataPath))

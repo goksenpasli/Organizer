@@ -4,7 +4,7 @@
     xmlns:Converter="clr-namespace:Organizer.Converter"
     xmlns:Extensions="clr-namespace:Extensions;assembly=Extensions"
     xmlns:Media="clr-namespace:Extensions.Controls;assembly=Extensions"
-    xmlns:ViewModel="clr-namespace:Organizer.ViewModel"
+    xmlns:View="clr-namespace:Organizer.View" xmlns:ViewModel="clr-namespace:Organizer.ViewModel"
     xmlns:ice="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
     xmlns:local="clr-namespace:Organizer"
     StartupUri="MainWindow.xaml">
@@ -242,6 +242,9 @@
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
+            <DataTemplate x:Key="DocxViewerTemplate">
+                <View:DocxViewer DocxDataFilePath="{Binding Path=DataContext, Converter={StaticResource FilePathMergeConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+            </DataTemplate>
             <DataTemplate x:Key="ImageViewerTemplate">
                 <Extensions:ImageViewer DecodeHeight="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}" ImageFilePath="{Binding Converter={StaticResource FilePathMergeConverter}, Mode=OneWay}" />
             </DataTemplate>
@@ -269,6 +272,7 @@
                 <Extensions:ImageViewer DecodeHeight="300" ImageFilePath="{Binding Converter={StaticResource FilePathMergeConverter}, Mode=OneWay}" />
             </DataTemplate>
             <ViewModel:ViewerTemplateSelector x:Key="ViewerSelector"
+                Docx="{StaticResource DocxViewerTemplate}"
                 Empty="{StaticResource EmptyViewerTemplate}"
                 Image="{StaticResource ImageViewerTemplate}"
                 Pdf="{StaticResource PdfViewerTemplate}"

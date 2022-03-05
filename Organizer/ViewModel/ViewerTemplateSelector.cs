@@ -7,6 +7,8 @@ namespace Organizer.ViewModel
 {
     public class ViewerTemplateSelector : DataTemplateSelector
     {
+        public DataTemplate Docx { get; set; }
+
         public DataTemplate Empty { get; set; }
 
         public DataTemplate Image { get; set; }
@@ -36,6 +38,10 @@ namespace Organizer.ViewModel
                 {
                     return Zip;
                 }
+                if (docext.Contains(ext))
+                {
+                    return Docx;
+                }
                 if (imageext.Contains(ext))
                 {
                     return Image;
@@ -51,6 +57,8 @@ namespace Organizer.ViewModel
             }
             return Empty;
         }
+
+        private readonly string[] docext = new string[] { ".docx", ".txt", ".xml", ".xaml", ".xsl", ".xslt" };
 
         private readonly string[] imageext = new string[] { ".jpg", ".jpeg", ".jfif", ".tif", ".tiff", ".png", ".bmp" };
 
