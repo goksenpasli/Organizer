@@ -76,7 +76,14 @@ namespace Organizer.ViewModel
                 }
             }, parameter => true);
 
-            DosyaAç = new RelayCommand<object>(parameter => _ = Process.Start(Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.XmlDataPath), parameter as string)));
+            DosyaAç = new RelayCommand<object>(parameter =>
+            {
+                string file = Path.Combine(Path.GetDirectoryName(Properties.Settings.Default.XmlDataPath), parameter as string);
+                if (File.Exists(file))
+                {
+                    _ = Process.Start(file);
+                }
+            });
 
             ExploreFile = new RelayCommand<object>(parameter => ExtensionMethods.OpenFolderAndSelectItem(Path.GetDirectoryName(Properties.Settings.Default.XmlDataPath), Path.GetFileName(parameter as string)), parameter => true);
 
