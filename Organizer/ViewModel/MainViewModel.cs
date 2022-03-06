@@ -141,6 +141,12 @@ namespace Organizer.ViewModel
                 }
             }, parameter => !string.IsNullOrWhiteSpace(Properties.Settings.Default.XmlDataPath) && !string.IsNullOrWhiteSpace(Veri.DosyaAdı) && Veriler.Etiketler.Etiket.Any(z => z.Seçili));
 
+            KayıtEtiketEkle = new RelayCommand<object>(parameter =>
+            {
+                SeçiliVeri.Etiket.Add(new Etiket() { Id = (int)parameter });
+                DatabaseSave.Execute(null);
+            }, parameter => parameter is not null && SeçiliVeri?.Etiket?.Any(z => z.Id == (int)parameter) == false);
+
             if (!File.Exists(Properties.Settings.Default.XmlDataPath))
             {
                 if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
@@ -176,6 +182,8 @@ namespace Organizer.ViewModel
         public ICommand ExploreFile { get; }
 
         public ICommand KayıtEkle { get; }
+
+        public ICommand KayıtEtiketEkle { get; }
 
         public bool Panorama { get; set; }
 
@@ -226,7 +234,7 @@ namespace Organizer.ViewModel
                 }
                 MainWindow.cvsetiket.Filter += (s, e) => e.Accepted = (e.Item as Etiket)?.Açıklama?.Contains(EtiketAçıklamaMetni) == true;
             }
-            if (e.PropertyName is "SeçiliVeri" && !ViewerTemplateSelector.imageext.Contains(Path.GetExtension(SeçiliVeri.DosyaAdı).ToLower()))
+            if (e.PropertyName is "SeçiliVeri" && SeçiliVeri is not null && !ViewerTemplateSelector.imageext.Contains(Path.GetExtension(SeçiliVeri.DosyaAdı).ToLower()))
             {
                 Panorama = false;
             }

@@ -38,14 +38,14 @@
                             </StackPanel>
                         </Button>
                     </HeaderedContentControl>
-                    <TextBox Text="{Binding Etiket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Text="{Binding Etiket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" d:Text="Etiket" />
                     <HeaderedContentControl>
                         <HeaderedContentControl.Header>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="ETİKETLER" VerticalAlignment="Center" />
                                 <TextBox Text="{Binding EtiketAçıklamaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Width="55"
-                                    IsTabStop="False" />
+                                    d:Text="EtiketAçıklamaMetni" IsTabStop="False" />
                             </StackPanel>
                         </HeaderedContentControl.Header>
                         <ListBox Height="100"
@@ -109,7 +109,7 @@
                                 <TextBox Text="{Binding Path=XmlDataPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Source={x:Static properties:Settings.Default}}"
                                     Grid.Row="0"
                                     VerticalContentAlignment="Center"
-                                    IsReadOnly="True" />
+                                    d:Text="XmlDataPath" IsReadOnly="True" />
                                 <TextBox Text="{Binding SampleXmlData, Mode=OneWay}"
                                     Grid.Row="1" Grid.ColumnSpan="2"
                                     Height="100"
@@ -182,7 +182,9 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="ETİKET ARA" VerticalAlignment="Center" />
-                    <TextBox Text="{Binding EtiketAramaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
+                    <TextBox Text="{Binding EtiketAramaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Grid.Column="1"
+                        d:Text="EtiketAramaMetni" />
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -211,10 +213,30 @@
                     </ListBox>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="48" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <extensions:HorizontalListBox d:ItemsSource="{d:SampleData}" ItemsSource="{Binding SeçiliVeri.Etiket}">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Command="{Binding KayıtEtiketEkle}"
+                                CommandParameter="{Binding ElementName=CbEtiket, Path=SelectedItem.Id}"
+                                IsEnabled="{Binding ElementName=CbEtiket, Path=SelectedItem, Converter={StaticResource NullableToBooleanConverter}}">
+                                <Image Width="16" Height="16">
+                                    <Image.Source>
+                                        <MultiBinding Converter="{StaticResource SystemFileIconConverter}">
+                                            <Binding Source="Shell32.dll" />
+                                            <Binding Source="45" />
+                                        </MultiBinding>
+                                    </Image.Source>
+                                </Image>
+                            </Button>
+                            <ComboBox x:Name="CbEtiket"
+                                d:Width="25" DisplayMemberPath="Açıklama"
+                                ItemsSource="{Binding Veriler.Etiketler.Etiket, Source={StaticResource MainViewModel}}" />
+                        </StackPanel>
+                        <extensions:HorizontalListBox Grid.Row="1"
+                            d:ItemsSource="{d:SampleData}"
+                            ItemsSource="{Binding SeçiliVeri.Etiket}">
                             <extensions:HorizontalListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -247,7 +269,7 @@
                                 </DataTemplate>
                             </extensions:HorizontalListBox.ItemTemplate>
                         </extensions:HorizontalListBox>
-                        <ContentPresenter Content="{Binding SelectedItem.DosyaAdı, ElementName=LbDosya}" Grid.Row="1">
+                        <ContentPresenter Content="{Binding SelectedItem.DosyaAdı, ElementName=LbDosya}" Grid.Row="2">
                             <ContentPresenter.Style>
                                 <Style TargetType="ContentPresenter">
                                     <Style.Triggers>
