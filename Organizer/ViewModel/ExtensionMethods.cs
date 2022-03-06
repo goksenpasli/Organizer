@@ -21,9 +21,17 @@ namespace Organizer.ViewModel
 
         internal static T DeSerialize<T>(this string xmldatapath) where T : class, new()
         {
-            XmlSerializer serializer = new(typeof(T));
-            using StreamReader stream = new(xmldatapath);
-            return serializer.Deserialize(stream) as T;
+            try
+            {
+                XmlSerializer serializer = new(typeof(T));
+                using StreamReader stream = new(xmldatapath);
+                return serializer.Deserialize(stream) as T;
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(Ex.Message);
+                return null;
+            }
         }
 
         internal static T DeSerialize<T>(this XElement xElement) where T : class, new()

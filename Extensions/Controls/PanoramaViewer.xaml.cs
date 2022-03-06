@@ -107,7 +107,7 @@ namespace Extensions.Controls
 
         private bool _isOnDrag;
 
-        private System.Windows.Point _startPoiint;
+        private Point _startPoiint;
 
         private double _startRotateX;
 
@@ -177,11 +177,11 @@ namespace Extensions.Controls
             return (Vector3D)GetPosition(t, y);
         }
 
-        private static System.Windows.Point GetTextureCoordinate(double t, double y)
+        private static Point GetTextureCoordinate(double t, double y)
         {
             Matrix TYtoUV = new();
             TYtoUV.Scale(1 / (2 * Math.PI), -0.5);
-            System.Windows.Point p = new(t, y);
+            Point p = new(t, y);
             p *= TYtoUV;
             return p;
         }

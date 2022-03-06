@@ -164,13 +164,26 @@
                 </StackPanel>
             </ScrollViewer>
         </GroupBox>
-        <GroupBox Grid.Column="1" Header="DOSYALAR">
+        <GroupBox Grid.Column="1">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="DOSYALAR" VerticalAlignment="Center" />
+                    <ToggleButton Content="PANORAMA" IsChecked="{Binding Panorama, Source={StaticResource MainViewModel}}" />
+                </StackPanel>
+            </GroupBox.Header>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBox Text="{Binding EtiketAramaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" />
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="ETİKET ARA" VerticalAlignment="Center" />
+                    <TextBox Text="{Binding EtiketAramaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
+                </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
@@ -187,14 +200,11 @@
                                     <TextBlock Text="{Binding Dosya}"
                                         Width="200"
                                         d:Width="50" TextWrapping="Wrap" />
-                                    <TextBlock>
-                                        <Hyperlink Command="{Binding DosyaAç, Mode=OneWay, Source={StaticResource MainViewModel}}" CommandParameter="{Binding DosyaAdı}">
+                                    <TextBlock><Hyperlink Command="{Binding DosyaAç, Mode=OneWay, Source={StaticResource MainViewModel}}" CommandParameter="{Binding DosyaAdı}">
                                             <Run Text=" AÇ" />
-                                        </Hyperlink>
-                                        <Hyperlink Command="{Binding ExploreFile, Mode=OneWay, Source={StaticResource MainViewModel}}" CommandParameter="{Binding DosyaAdı}">
+                                        </Hyperlink><Run Text=" " /><Hyperlink Command="{Binding ExploreFile, Mode=OneWay, Source={StaticResource MainViewModel}}" CommandParameter="{Binding DosyaAdı}">
                                             <Run Text=" KLASÖRDE GÖSTER" />
-                                        </Hyperlink>
-                                    </TextBlock>
+                                        </Hyperlink></TextBlock>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -223,7 +233,7 @@
                                                 </Image.Source>
                                             </Image>
                                         </Button>
-                                        <Button Command="{Binding EtiketSil, Mode=OneWay, Source={StaticResource MainViewModel}}" CommandParameter="{Binding ElementName=CbEtiket, Path=SelectedItem}">
+                                        <Button Command="{Binding EtiketSil, Mode=OneWay, Source={StaticResource MainViewModel}}" CommandParameter="{Binding SelectedItem, ElementName=CbEtiket}">
                                             <Image Width="16" Height="16">
                                                 <Image.Source>
                                                     <MultiBinding Converter="{StaticResource SystemFileIconConverter}">
@@ -237,9 +247,20 @@
                                 </DataTemplate>
                             </extensions:HorizontalListBox.ItemTemplate>
                         </extensions:HorizontalListBox>
-                        <ContentPresenter Content="{Binding ElementName=LbDosya, Path=SelectedItem.DosyaAdı}"
-                            Grid.Row="1"
-                            ContentTemplateSelector="{Binding Mode=OneWay, Source={StaticResource ViewerSelector}}" />
+                        <ContentPresenter Content="{Binding SelectedItem.DosyaAdı, ElementName=LbDosya}" Grid.Row="1">
+                            <ContentPresenter.Style>
+                                <Style TargetType="ContentPresenter">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Panorama, Source={StaticResource MainViewModel}}" Value="true">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource PanoramaImageViewerTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Panorama, Source={StaticResource MainViewModel}}" Value="false">
+                                            <Setter Property="ContentTemplateSelector" Value="{StaticResource ViewerSelector}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentPresenter.Style>
+                        </ContentPresenter>
                     </Grid>
                 </Grid>
             </Grid>

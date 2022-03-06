@@ -1,6 +1,7 @@
 ﻿using Extensions;
 using Microsoft.Win32;
 using Organizer.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -26,7 +27,17 @@ namespace Organizer.ViewModel
 
             Veri = new Veri();
 
-            DatabaseSave = new RelayCommand<object>(parameter => Veriler.Serialize(), parameter => File.Exists(Properties.Settings.Default.XmlDataPath));
+            DatabaseSave = new RelayCommand<object>(parameter =>
+            {
+                try
+                {
+                    Veriler.Serialize();
+                }
+                catch (Exception Ex)
+                {
+                    MessageBox.Show(Ex.Message);
+                }
+            }, parameter => File.Exists(Properties.Settings.Default.XmlDataPath));
 
             RefreshDatabase = new RelayCommand<object>(parameter => Veriler.Veri = ExtensionMethods.VerileriYükle(), parameter => File.Exists(Properties.Settings.Default.XmlDataPath));
 
@@ -166,6 +177,8 @@ namespace Organizer.ViewModel
 
         public ICommand KayıtEkle { get; }
 
+        public bool Panorama { get; set; }
+
         public ICommand RefreshDatabase { get; }
 
         public string SampleXmlData => @"<?xml version=""1.0"" encoding=""UTF-8""?>
@@ -212,6 +225,10 @@ namespace Organizer.ViewModel
                     return;
                 }
                 MainWindow.cvsetiket.Filter += (s, e) => e.Accepted = (e.Item as Etiket)?.Açıklama?.Contains(EtiketAçıklamaMetni) == true;
+            }
+            if (e.PropertyName is "SeçiliVeri" && !ViewerTemplateSelector.imageext.Contains(Path.GetExtension(SeçiliVeri.DosyaAdı).ToLower()))
+            {
+                Panorama = false;
             }
         }
     }

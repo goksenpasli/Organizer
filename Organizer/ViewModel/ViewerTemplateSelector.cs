@@ -13,6 +13,8 @@ namespace Organizer.ViewModel
 
         public DataTemplate Image { get; set; }
 
+        public DataTemplate Panorama { get; set; }
+
         public DataTemplate Pdf { get; set; }
 
         public DataTemplate Video { get; set; }
@@ -66,7 +68,7 @@ namespace Organizer.ViewModel
 
         private readonly string[] docext = new string[] { ".docx", ".txt", ".xml", ".xaml", ".xsl", ".xslt" };
 
-        private readonly string[] imageext = new string[] { ".jpg", ".jpeg", ".jfif", ".tif", ".tiff", ".png", ".bmp" };
+        public static readonly string[] imageext = new string[] { ".jpg", ".jpeg", ".jfif", ".tif", ".tiff", ".png", ".bmp" };
 
         private readonly string[] videoext = new string[] { ".mp4", ".wmv", ".avi", ".mpg", ".mov", ".3gp2", ".3gpp", ".3gp", ".mpeg" };
 
