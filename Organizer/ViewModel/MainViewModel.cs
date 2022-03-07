@@ -135,7 +135,7 @@ namespace Organizer.ViewModel
                     DatabaseSave.Execute(null);
                     Veri.DosyaAdı = null;
                 }
-                catch (System.Exception Ex)
+                catch (Exception Ex)
                 {
                     MessageBox.Show(Ex.Message);
                 }
@@ -168,6 +168,8 @@ namespace Organizer.ViewModel
         public ICommand DosyaAç { get; }
 
         public ICommand DosyaEkle { get; }
+
+        public bool DosyaİsimArama { get; set; }
 
         public string Etiket { get; set; }
 
@@ -222,7 +224,12 @@ namespace Organizer.ViewModel
                     return;
                 }
                 IEnumerable<int> id = Veriler?.Etiketler?.Etiket?.Where(z => z.Açıklama?.Contains(EtiketAramaMetni) == true).Select(z => z.Id);
-                MainWindow.cvs.Filter += (s, e) => e.Accepted = (e.Item as Veri)?.Etiket?.Any(z => id?.Contains(z.Id) == true) == true;
+                MainWindow.cvs.Filter += (s, e) =>
+                {
+                    e.Accepted = DosyaİsimArama
+                        ? (e.Item as Veri)?.DosyaAdı?.Contains(EtiketAramaMetni) == true || (e.Item as Veri)?.Etiket?.Any(z => id?.Contains(z.Id) == true) == true
+                        : (e.Item as Veri)?.Etiket?.Any(z => id?.Contains(z.Id) == true) == true;
+                };
             }
 
             if (e.PropertyName is "EtiketAçıklamaMetni")
