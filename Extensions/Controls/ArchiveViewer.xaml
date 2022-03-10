@@ -107,8 +107,10 @@
                 </Style>
             </Grid.Style>
             <ProgressBar Width="20"
+                VerticalAlignment="Stretch"
                 Foreground="{StaticResource ProgressBarPinkForeground}"
                 Maximum="100" Orientation="Vertical"
+                Style="{StaticResource ProgressBarStyle}"
                 Value="{Binding ToplamOran}" />
             <TextBlock Text="{Binding ToplamOran, StringFormat=\{0:F0\}}"
                 HorizontalAlignment="Center" VerticalAlignment="Center"

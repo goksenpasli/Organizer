@@ -224,7 +224,7 @@
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="48" />
+                            <RowDefinition Height="64" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal">
@@ -248,10 +248,17 @@
                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                 IsChecked="{Binding Panorama, Source={StaticResource MainViewModel}}" />
                         </StackPanel>
-                        <extensions:HorizontalListBox Grid.Row="1"
+                        <ListBox Grid.Row="1"
                             d:ItemsSource="{d:SampleData}"
-                            ItemsSource="{Binding SeçiliVeri.Etiket}">
-                            <extensions:HorizontalListBox.ItemTemplate>
+                            ItemsSource="{Binding SeçiliVeri.Etiket}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <ComboBox x:Name="CbEtiket"
@@ -283,8 +290,8 @@
                                         </Button>
                                     </StackPanel>
                                 </DataTemplate>
-                            </extensions:HorizontalListBox.ItemTemplate>
-                        </extensions:HorizontalListBox>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
                         <ContentPresenter Content="{Binding SelectedItem.DosyaAdı, ElementName=LbDosya}" Grid.Row="2">
                             <ContentPresenter.Style>
                                 <Style TargetType="ContentPresenter">

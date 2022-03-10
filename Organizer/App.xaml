@@ -7,7 +7,7 @@
     xmlns:View="clr-namespace:Organizer.View" xmlns:ViewModel="clr-namespace:Organizer.ViewModel"
     xmlns:ice="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
     xmlns:local="clr-namespace:Organizer" xmlns:ui="http://schemas.modernwpf.com/2019"
-             StartupUri="MainWindow.xaml">
+    StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,7 +17,7 @@
             </ResourceDictionary.MergedDictionaries>
             <ViewModel:MainViewModel x:Key="MainViewModel" />
             <Converter:FilePathMergeConverter x:Key="FilePathMergeConverter" />
-            <NullableBoolConverter x:Key="NullableBoolConverter"/>
+            <NullableBoolConverter x:Key="NullableBoolConverter" />
             <DrawingBrush x:Key="Dur"
                 ice:Freeze="True" Stretch="Uniform">
                 <DrawingBrush.Drawing>
