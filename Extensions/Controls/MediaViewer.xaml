@@ -13,7 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="24" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <MediaElement x:Name="Player"
             Grid.Row="0"
@@ -51,42 +51,33 @@
             <Button x:Name="Play"
                 Content="4"
                 Grid.Column="0"
-                Width="24" Height="24"
                 Click="Play_Click" FontFamily="Webdings" FontSize="18" Foreground="Blue" />
             <Button x:Name="Pause"
                 Content=";"
                 Grid.Column="1"
-                Width="24" Height="24"
                 Click="Pause_Click" FontFamily="Webdings" FontSize="18" Foreground="Blue" />
             <Button x:Name="Stop"
                 Content="&lt;"
                 Grid.Column="2"
-                Width="24" Height="24"
                 Click="Stop_Click" FontFamily="Webdings" FontSize="18" Foreground="Blue" />
             <Button x:Name="Back"
                 Content="7"
                 Grid.Column="3"
-                Width="24" Height="24"
                 Click="Back_Click" FontFamily="Webdings" FontSize="18" Foreground="Blue" />
             <Button x:Name="Forward"
                 Content="8"
                 Grid.Column="4"
-                Width="24" Height="24"
                 Click="Forward_Click" FontFamily="Webdings" FontSize="18" Foreground="Blue" />
             <Button x:Name="SlowBackward"
                 Content="9"
                 Grid.Column="5"
-                Width="24" Height="24"
                 Click="SlowBackward_Click" FontFamily="Webdings" FontSize="18" Foreground="Blue" />
             <Button x:Name="SlowForward"
                 Content=":"
                 Grid.Column="6"
-                Width="24" Height="24"
                 Click="SlowForward_Click" FontFamily="Webdings" FontSize="18" Foreground="Blue" />
             <ToggleButton x:Name="Mute"
                 Grid.Column="7"
-                Width="24" Height="24"
-                Margin="1,0,1,0"
                 Checked="Mute_Checked" FontSize="18" Foreground="Blue" IsThreeState="False"
                 Unchecked="Mute_Unchecked">
                 <ToggleButton.Style>
@@ -126,12 +117,11 @@
             <Button x:Name="Capture"
                 Content="N"
                 Grid.Column="10"
-                Width="24" Height="24"
                 VerticalContentAlignment="Center"
-                Click="Capture_Click" FontFamily="Webdings" FontSize="20" Foreground="Blue"
+                Click="Capture_Click" FontFamily="Webdings" FontSize="18" Foreground="Blue"
                 ToolTip="Ekran Yakala Resimlerim Klasörüne Kaydedilir." />
             <local:ContentToggleButton Grid.Column="11"
-                FontFamily="Webdings" FontSize="20" Foreground="Blue" OverContent="·"
+                FontFamily="Webdings" FontSize="18" Foreground="Blue" OverContent="·"
                 PlacementMode="Top">
                 <local:ContentToggleButton.Content>
                     <GroupBox>

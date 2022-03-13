@@ -229,7 +229,7 @@
                                 Source="{Binding Source, RelativeSource={RelativeSource TemplatedParent}}"
                                 Stretch="None">
                                 <Image.LayoutTransform>
-                                    <TransformGroup>
+                                    <TransformGroup x:Name="Tg">
                                         <ScaleTransform ScaleX="{Binding Zoom, RelativeSource={RelativeSource TemplatedParent}}" ScaleY="{Binding Zoom, RelativeSource={RelativeSource TemplatedParent}}" />
                                         <RotateTransform Angle="{Binding Angle, RelativeSource={RelativeSource TemplatedParent}}" />
                                     </TransformGroup>

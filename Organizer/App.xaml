@@ -18,6 +18,7 @@
             <ViewModel:MainViewModel x:Key="MainViewModel" />
             <Converter:FilePathMergeConverter x:Key="FilePathMergeConverter" />
             <NullableBoolConverter x:Key="NullableBoolConverter" />
+            <Extensions:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
             <DrawingBrush x:Key="Dur"
                 ice:Freeze="True" Stretch="Uniform">
                 <DrawingBrush.Drawing>

@@ -292,7 +292,10 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <ContentPresenter Content="{Binding SelectedItem.DosyaAdı, ElementName=LbDosya}" Grid.Row="2">
+                        <ContentPresenter Content="{Binding SelectedItem.DosyaAdı, ElementName=LbDosya}"
+                            Grid.Row="2"
+                            d:Visibility="Visible"
+                            Visibility="{Binding ElementName=LbDosya, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}">
                             <ContentPresenter.Style>
                                 <Style TargetType="ContentPresenter">
                                     <Style.Triggers>

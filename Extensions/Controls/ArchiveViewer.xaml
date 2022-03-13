@@ -87,7 +87,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <ProgressBar Width="32"
-                                    Maximum="1"
+                                    d:Value="0.5" Maximum="1"
                                     Style="{Binding Mode=OneWay, Source={StaticResource ProgressBarStyle}}"
                                     Value="{Binding Oran}" />
                             </DataTemplate>
@@ -108,13 +108,14 @@
             </Grid.Style>
             <ProgressBar Width="20"
                 VerticalAlignment="Stretch"
+                d:Value="50"
                 Foreground="{StaticResource ProgressBarPinkForeground}"
                 Maximum="100" Orientation="Vertical"
                 Style="{StaticResource ProgressBarStyle}"
                 Value="{Binding ToplamOran}" />
             <TextBlock Text="{Binding ToplamOran, StringFormat=\{0:F0\}}"
                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                FontSize="11" FontWeight="Bold" />
+                d:Text="50" FontSize="11" FontWeight="Bold" />
         </Grid>
         <StatusBar Grid.Row="1" Grid.ColumnSpan="2">
             <StatusBar.ItemsPanel>
