@@ -6,14 +6,14 @@
     xmlns:Media="clr-namespace:Extensions.Controls;assembly=Extensions"
     xmlns:View="clr-namespace:Organizer.View" xmlns:ViewModel="clr-namespace:Organizer.ViewModel"
     xmlns:ice="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-    xmlns:local="clr-namespace:Organizer" xmlns:ui="http://schemas.modernwpf.com/2019"
-    StartupUri="MainWindow.xaml">
+    xmlns:local="clr-namespace:Organizer" xmlns:hc="https://handyorg.github.io/handycontrol"
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Extensions;component/Themes/Generic.xaml" />
-                <ui:ThemeResources />
-                <ui:XamlControlsResources />
+                <hc:ThemeResources />
+                <hc:Theme/>
             </ResourceDictionary.MergedDictionaries>
             <ViewModel:MainViewModel x:Key="MainViewModel" />
             <Converter:FilePathMergeConverter x:Key="FilePathMergeConverter" />

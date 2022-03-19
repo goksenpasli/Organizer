@@ -1,15 +1,13 @@
-﻿<Window Title="Organize"
-    x:Class="Organizer.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="Organizer.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:extensions="clr-namespace:Extensions;assembly=Extensions"
     xmlns:local="clr-namespace:Organizer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:properties="clr-namespace:Organizer.Properties" xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:properties="clr-namespace:Organizer.Properties" Title="Organize" d:Height="600"
+    d:Width="800"
     DataContext="{Binding Mode=OneWay, Source={StaticResource MainViewModel}}"
-    d:Height="600" d:Width="800" ui:WindowHelper.UseModernWindowStyle="True" UseLayoutRounding="True"
-    WindowStartupLocation="CenterScreen" WindowState="Maximized"
+    UseLayoutRounding="True" WindowStartupLocation="CenterScreen" WindowState="Maximized"
     mc:Ignorable="d">
     <Window.Resources>
         <CollectionViewSource x:Key="Veriler" Source="{Binding Veriler.Veri}" />
@@ -21,6 +19,11 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <GroupBox Header="DOSYA EKLEME">
+            <GroupBox.Resources>
+                <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                    <Setter Property="Height" Value="Auto" />
+                </Style>
+            </GroupBox.Resources>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <HeaderedContentControl Header="DOSYA SEÇ">
@@ -34,19 +37,17 @@
                                         </MultiBinding>
                                     </Image.Source>
                                 </Image>
-                                <TextBlock Text="SEÇ" VerticalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" Text="SEÇ" />
                             </StackPanel>
                         </Button>
                     </HeaderedContentControl>
-                    <TextBox Text="{Binding Etiket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        d:Text="Etiket" ui:ControlHelper.PlaceholderText="Etiket Adı Girin" />
+                    <TextBox d:Text="Etiket" Text="{Binding Etiket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <HeaderedContentControl>
                         <HeaderedContentControl.Header>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="ETİKETLER" VerticalAlignment="Center" />
-                                <TextBox Text="{Binding EtiketAçıklamaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Width="130"
-                                    d:Text="EtiketAçıklamaMetni" ui:ControlHelper.PlaceholderText="Etiket Arayın" IsTabStop="False" />
+                                <TextBlock VerticalAlignment="Center" Text="ETİKETLER" />
+                                <TextBox Width="130" d:Text="EtiketAçıklamaMetni" IsTabStop="False"
+                                    Text="{Binding EtiketAçıklamaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </HeaderedContentControl.Header>
                         <ListBox Height="100"
@@ -59,8 +60,8 @@
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate>
-                                                <CheckBox Content="{Binding Açıklama}"
-                                                    d:Content="Açıklama"
+                                                <CheckBox d:Content="Açıklama"
+                                                    Content="{Binding Açıklama}"
                                                     IsChecked="{Binding Seçili}" />
                                             </ControlTemplate>
                                         </Setter.Value>
@@ -80,7 +81,7 @@
                                         </MultiBinding>
                                     </Image.Source>
                                 </Image>
-                                <TextBlock Text="ETİKET&#xA;EKLE" VerticalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" Text="ETİKET&#xA;EKLE" />
                             </StackPanel>
                         </Button>
                         <Button HorizontalAlignment="Stretch" Command="{Binding KayıtEkle}">
@@ -93,7 +94,7 @@
                                         </MultiBinding>
                                     </Image.Source>
                                 </Image>
-                                <TextBlock Text="KAYIT&#xA;EKLE" VerticalAlignment="Center" />
+                                <TextBlock VerticalAlignment="Center" Text="KAYIT&#xA;EKLE" />
                             </StackPanel>
                         </Button>
                     </UniformGrid>
@@ -109,17 +110,14 @@
                                     <RowDefinition />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <TextBox Text="{Binding Path=XmlDataPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Source={x:Static properties:Settings.Default}}"
-                                    Grid.Row="0"
-                                    VerticalContentAlignment="Center"
-                                    d:Text="XmlDataPath" IsReadOnly="True" />
-                                <TextBox Text="{Binding SampleXmlData, Mode=OneWay}"
-                                    Grid.Row="1" Grid.ColumnSpan="2"
-                                    Height="100"
-                                    IsReadOnly="true" TextWrapping="Wrap"
-                                    ToolTip="Örnek Boş XML Dosyası Data.xml adında dosya oluşturup Kaydedin." />
-                                <Button Grid.Row="2" Grid.ColumnSpan="2"
-                                    HorizontalAlignment="Stretch"
+                                <TextBox Grid.Row="0" VerticalContentAlignment="Center" d:Text="XmlDataPath"
+                                    IsReadOnly="True"
+                                    Text="{Binding Path=XmlDataPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Source={x:Static properties:Settings.Default}}" />
+                                <TextBox Grid.Row="1" Grid.ColumnSpan="2" Height="100"
+                                    IsReadOnly="true"
+                                    Text="{Binding SampleXmlData, Mode=OneWay}"
+                                    TextWrapping="Wrap" ToolTip="Örnek Boş XML Dosyası Data.xml adında dosya oluşturup Kaydedin." />
+                                <Button Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch"
                                     Command="{Binding SaveSampleXml}">
                                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                         <Image Width="32" Height="32">
@@ -130,11 +128,10 @@
                                                 </MultiBinding>
                                             </Image.Source>
                                         </Image>
-                                        <TextBlock Text="ÖRNEK BOŞ XML&#x0a;DOSYASI KAYDET" VerticalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" Text="ÖRNEK BOŞ XML&#x0a;DOSYASI KAYDET" />
                                     </StackPanel>
                                 </Button>
-                                <Button Grid.Row="0" Grid.Column="1"
-                                    HorizontalAlignment="Stretch"
+                                <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch"
                                     Command="{Binding YoluKaydet, Mode=OneWay}">
                                     <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                         <Image Width="32" Height="32">
@@ -145,14 +142,13 @@
                                                 </MultiBinding>
                                             </Image.Source>
                                         </Image>
-                                        <TextBlock Text="KLASÖR&#x0a;AÇ" VerticalAlignment="Center" />
+                                        <TextBlock VerticalAlignment="Center" Text="KLASÖR&#x0a;AÇ" />
                                     </StackPanel>
                                 </Button>
                             </Grid>
                         </HeaderedContentControl>
                     </GroupBox>
-                    <Button HorizontalAlignment="Stretch"
-                        Background="Green"
+                    <Button HorizontalAlignment="Stretch" Background="Green"
                         Command="{Binding RefreshDatabase}"
                         IsTabStop="False">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
@@ -164,7 +160,7 @@
                                     </MultiBinding>
                                 </Image.Source>
                             </Image>
-                            <TextBlock Text="VERİLERİ&#x0a;YENİLE" VerticalAlignment="Center" />
+                            <TextBlock VerticalAlignment="Center" Text="VERİLERİ&#x0a;YENİLE" />
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -181,13 +177,11 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <CheckBox Content="ETİKET ARA"
-                        VerticalAlignment="Center" VerticalContentAlignment="Center"
+                    <CheckBox VerticalAlignment="Center" VerticalContentAlignment="Center" Content="ETİKET ARA"
                         IsChecked="{Binding DosyaİsimArama}"
                         ToolTip="İşaretliyse dosya isimlerinde de arama yapılır." />
-                    <TextBox Text="{Binding EtiketAramaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        Grid.Column="1"
-                        d:Text="EtiketAramaMetni" ui:ControlHelper.PlaceholderText="Etiket Arayın" />
+                    <TextBox Grid.Column="1" d:Text="EtiketAramaMetni"
+                        Text="{Binding EtiketAramaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -202,13 +196,11 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Width="32" Height="32"
-                                        RenderOptions.BitmapScalingMode="NearestNeighbor"
+                                    <Image Width="32" Height="32" RenderOptions.BitmapScalingMode="NearestNeighbor"
                                         Source="{Binding DosyaAdı, Converter={StaticResource FilePathToIconConverter}}" />
-                                    <TextBlock Text="{Binding Dosya}"
-                                        Width="200"
-                                        VerticalAlignment="Center"
-                                        d:Width="50" TextWrapping="Wrap" />
+                                    <TextBlock Width="200" VerticalAlignment="Center" d:Width="50"
+                                        Text="{Binding Dosya}"
+                                        TextWrapping="Wrap" />
                                     <TextBlock VerticalAlignment="Center">
                                         <Hyperlink Command="{Binding DosyaAç, Mode=OneWay, Source={StaticResource MainViewModel}}" CommandParameter="{Binding DosyaAdı}">
                                             <Run Text="AÇ" />
@@ -241,11 +233,9 @@
                                     </Image.Source>
                                 </Image>
                             </Button>
-                            <ComboBox x:Name="CbEtiket"
-                                d:Width="25" ui:ControlHelper.PlaceholderText="Eklenecek Etiketi Seçin" DisplayMemberPath="Açıklama"
+                            <ComboBox x:Name="CbEtiket" d:Width="25" DisplayMemberPath="Açıklama"
                                 ItemsSource="{Binding Veriler.Etiketler.Etiket, Source={StaticResource MainViewModel}}" />
-                            <ToggleButton Content="PANORAMA"
-                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            <ToggleButton HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="PANORAMA"
                                 IsChecked="{Binding Panorama, Source={StaticResource MainViewModel}}" />
                         </StackPanel>
                         <ListBox Grid.Row="1"
@@ -261,8 +251,7 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <ComboBox x:Name="CbEtiket"
-                                            d:Width="25" DisplayMemberPath="Açıklama"
+                                        <ComboBox x:Name="CbEtiket" d:Width="25" DisplayMemberPath="Açıklama"
                                             ItemsSource="{Binding Veriler.Etiketler.Etiket, Source={StaticResource MainViewModel}}"
                                             SelectedValue="{Binding Id}"
                                             SelectedValuePath="Id" />
@@ -292,9 +281,8 @@
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                        <ContentPresenter Content="{Binding SelectedItem.DosyaAdı, ElementName=LbDosya}"
-                            Grid.Row="2"
-                            d:Visibility="Visible"
+                        <ContentPresenter Grid.Row="2" d:Visibility="Visible"
+                            Content="{Binding SelectedItem.DosyaAdı, ElementName=LbDosya}"
                             Visibility="{Binding ElementName=LbDosya, Path=SelectedItem, Converter={StaticResource NullToVisibilityConverter}}">
                             <ContentPresenter.Style>
                                 <Style TargetType="ContentPresenter">

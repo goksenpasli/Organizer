@@ -144,6 +144,7 @@ namespace Organizer.ViewModel
                 if (e.NewValue is not null)
                 {
                     pdfViewer.PdfFileStream = new FileStream(e.NewValue as string, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    pdfViewer.Sayfa = 1;
                 }
                 else
                 {
