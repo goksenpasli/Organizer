@@ -41,10 +41,5 @@ namespace Extensions
             get => (bool)GetValue(StaysOpenProperty);
             set => SetValue(StaysOpenProperty, value);
         }
-
-        public override string ToString()
-        {
-            return OverContent.ToString();
-        }
     }
 }

@@ -1,26 +1,24 @@
-﻿<Application x:Class="Organizer.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Application x:Class="Organizer.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Converter="clr-namespace:Organizer.Converter"
     xmlns:Extensions="clr-namespace:Extensions;assembly=Extensions"
     xmlns:Media="clr-namespace:Extensions.Controls;assembly=Extensions"
     xmlns:View="clr-namespace:Organizer.View" xmlns:ViewModel="clr-namespace:Organizer.ViewModel"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:ice="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-    xmlns:local="clr-namespace:Organizer" xmlns:hc="https://handyorg.github.io/handycontrol"
-             StartupUri="MainWindow.xaml">
+    xmlns:local="clr-namespace:Organizer" StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Extensions;component/Themes/Generic.xaml" />
                 <hc:ThemeResources />
-                <hc:Theme/>
+                <hc:Theme />
+                <ResourceDictionary Source="/Extensions;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ViewModel:MainViewModel x:Key="MainViewModel" />
             <Converter:FilePathMergeConverter x:Key="FilePathMergeConverter" />
             <NullableBoolConverter x:Key="NullableBoolConverter" />
             <Extensions:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-            <DrawingBrush x:Key="Dur"
-                ice:Freeze="True" Stretch="Uniform">
+            <DrawingBrush x:Key="Dur" ice:Freeze="True" Stretch="Uniform">
                 <DrawingBrush.Drawing>
                     <DrawingGroup>
                         <GeometryDrawing ice:Freeze="True" Brush="Black"
@@ -48,19 +46,18 @@
             </LinearGradientBrush>
             <ControlTemplate x:Key="ValidationErrorTemplate">
                 <Grid Focusable="False">
-                    <Canvas x:Name="Cnv"
-                        DataContext="{Binding ElementName=Adorner, Mode=OneWay}"
-                        Width="18" Height="18"
+                    <Canvas x:Name="Cnv" Width="18" Height="18"
                         HorizontalAlignment="Center" VerticalAlignment="Center"
                         Background="{StaticResource Dur}"
+                        DataContext="{Binding ElementName=Adorner, Mode=OneWay}"
                         RenderTransformOrigin="0.5,0.5" UseLayoutRounding="True">
                         <Canvas.ToolTip>
                             <ToolTip Background="{x:Null}"
                                 BorderBrush="{x:Null}"
                                 Foreground="{x:Null}">
-                                <Border Padding="4"
-                                    Background="Red" BorderBrush="White" BorderThickness="1">
-                                    <TextBlock Text="{Binding AdornedElement.(Validation.Errors)/ErrorContent, Mode=OneWay}" Foreground="White" />
+                                <Border Padding="4" Background="Red" BorderBrush="White"
+                                    BorderThickness="1">
+                                    <TextBlock Foreground="White" Text="{Binding AdornedElement.(Validation.Errors)/ErrorContent, Mode=OneWay}" />
                                 </Border>
                             </ToolTip>
                         </Canvas.ToolTip>
@@ -113,8 +110,7 @@
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="1" CornerRadius="3,3,0,0">
-                                    <ContentPresenter Margin="4"
-                                        ContentSource="Header" RecognizesAccessKey="True" />
+                                    <ContentPresenter Margin="4" ContentSource="Header" RecognizesAccessKey="True" />
                                 </Border>
                                 <Border Grid.Row="1"
                                     Background="{StaticResource BorderBackground}"
@@ -186,8 +182,7 @@
                                 </Image>
                             </Button.Content>
                         </Button>
-                        <StackPanel Grid.Column="2"
-                            Orientation="Horizontal"
+                        <StackPanel Grid.Column="2" Orientation="Horizontal"
                             Visibility="{Binding TifNavigasyonButtonEtkin, RelativeSource={RelativeSource TemplatedParent}}">
                             <RepeatButton Command="{Binding ViewerBack, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ToolTip="Önceki Sayfa">
                                 <Image Width="16" Height="16">
@@ -231,18 +226,15 @@
                                 </Image>
                             </Button.Content>
                         </Button>
-                        <Slider Grid.Column="4"
-                            Margin="2"
-                            AutoToolTipPlacement="TopLeft" Minimum="0.01" SmallChange="1"
+                        <Slider Grid.Column="4" Margin="2" AutoToolTipPlacement="TopLeft"
+                            Minimum="0.01" SmallChange="1"
                             Style="{StaticResource Slider}"
                             Value="{Binding Zoom, RelativeSource={RelativeSource TemplatedParent}}" />
-                        <Slider Grid.Column="5"
-                            Margin="2"
-                            AutoToolTipPlacement="TopLeft" IsSnapToTickEnabled="False" Maximum="360" SmallChange="1"
+                        <Slider Grid.Column="5" Margin="2" AutoToolTipPlacement="TopLeft"
+                            IsSnapToTickEnabled="False" Maximum="360" SmallChange="1"
                             Style="{StaticResource Slider}"
                             Value="{Binding Angle, RelativeSource={RelativeSource TemplatedParent}}" />
-                        <ComboBox Grid.Column="6"
-                            ItemStringFormat="{}{0} Dpi"
+                        <ComboBox Grid.Column="6" ItemStringFormat="{}{0} Dpi"
                             ItemsSource="{Binding DpiList, RelativeSource={RelativeSource TemplatedParent}}"
                             SelectedItem="{Binding Dpi, StringFormat=Dpi, RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid>
@@ -286,9 +278,8 @@
                 <Media:PanoramaViewer PanoramaVideo="{Binding Path=DataContext, Converter={StaticResource FilePathMergeConverter}, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
             </DataTemplate>
             <DataTemplate x:Key="EmptyViewerTemplate">
-                <TextBlock Text="ÖNİZLEME YOK"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"
-                    FontSize="48" Foreground="Red" />
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48"
+                    Foreground="Red" Text="ÖNİZLEME YOK" />
             </DataTemplate>
             <ViewModel:ViewerTemplateSelector x:Key="ViewerSelector"
                 Docx="{StaticResource DocxViewerTemplate}"

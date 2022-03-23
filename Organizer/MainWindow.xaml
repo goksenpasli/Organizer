@@ -2,7 +2,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:extensions="clr-namespace:Extensions;assembly=Extensions"
-    xmlns:local="clr-namespace:Organizer"
+    xmlns:hc="https://handyorg.github.io/handycontrol" xmlns:local="clr-namespace:Organizer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:properties="clr-namespace:Organizer.Properties" Title="Organize" d:Height="600"
     d:Width="800"
@@ -25,7 +25,7 @@
                 </Style>
             </GroupBox.Resources>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel>
+                <hc:SimpleStackPanel>
                     <HeaderedContentControl Header="DOSYA SEÇ">
                         <Button HorizontalAlignment="Stretch" Command="{Binding DosyaEkle}">
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
@@ -41,12 +41,14 @@
                             </StackPanel>
                         </Button>
                     </HeaderedContentControl>
-                    <TextBox d:Text="Etiket" Text="{Binding Etiket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <hc:TextBox d:Text="Etiket" hc:InfoElement.Placeholder="Etiket Kayıt"
+                        Text="{Binding Etiket, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <HeaderedContentControl>
                         <HeaderedContentControl.Header>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock VerticalAlignment="Center" Text="ETİKETLER" />
-                                <TextBox Width="130" d:Text="EtiketAçıklamaMetni" IsTabStop="False"
+                                <hc:TextBox Width="130" d:Text="EtiketAçıklamaMetni" hc:InfoElement.Placeholder="Etiket Ara"
+                                    IsTabStop="False"
                                     Text="{Binding EtiketAçıklamaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </HeaderedContentControl.Header>
@@ -163,7 +165,7 @@
                             <TextBlock VerticalAlignment="Center" Text="VERİLERİ&#x0a;YENİLE" />
                         </StackPanel>
                     </Button>
-                </StackPanel>
+                </hc:SimpleStackPanel>
             </ScrollViewer>
         </GroupBox>
         <GroupBox Grid.Column="1" Header="DOSYALAR">
@@ -180,7 +182,7 @@
                     <CheckBox VerticalAlignment="Center" VerticalContentAlignment="Center" Content="ETİKET ARA"
                         IsChecked="{Binding DosyaİsimArama}"
                         ToolTip="İşaretliyse dosya isimlerinde de arama yapılır." />
-                    <TextBox Grid.Column="1" d:Text="EtiketAramaMetni"
+                    <hc:TextBox Grid.Column="1" d:Text="EtiketAramaMetni" hc:InfoElement.Placeholder="Etiket Ara"
                         Text="{Binding EtiketAramaMetni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Grid>
                 <Grid Grid.Row="1">
@@ -233,7 +235,8 @@
                                     </Image.Source>
                                 </Image>
                             </Button>
-                            <ComboBox x:Name="CbEtiket" d:Width="25" DisplayMemberPath="Açıklama"
+                            <hc:ComboBox x:Name="CbEtiket" d:Width="25" hc:InfoElement.Placeholder="Etiket Seç"
+                                DisplayMemberPath="Açıklama"
                                 ItemsSource="{Binding Veriler.Etiketler.Etiket, Source={StaticResource MainViewModel}}" />
                             <ToggleButton HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="PANORAMA"
                                 IsChecked="{Binding Panorama, Source={StaticResource MainViewModel}}" />
